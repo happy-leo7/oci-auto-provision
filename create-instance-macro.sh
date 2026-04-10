@@ -47,13 +47,7 @@ while true; do
         echo "============================================"
         echo "✅ 인스턴스 생성 성공!"
         echo "============================================"
-        echo "$RESULT" | python3 -c "
-import sys,json
-d=json.load(sys.stdin)['data']
-print(f\"이름: {d['display-name']}\")
-print(f\"상태: {d['lifecycle-state']}\")
-print(f\"ID: {d['id']}\")
-" 2>/dev/null || echo "$RESULT"
+        echo "$RESULT" | grep -E '"display-name"|"lifecycle-state"|"id"' | head -3
         echo ""
         echo "OCI 콘솔에서 Public IP를 확인한 후:"
         echo "ssh -i [프라이빗키경로] ubuntu@[퍼블릭IP]"
